@@ -171,7 +171,8 @@ alert("Nooteee");
             'GET',
             function(response) {
                 console.log("response" + JSON.stringify(response));
-                window.parent.postMessage('response', JSON.stringify(response));
+                var inputs=JSON.stringify(response)
+                window.parent.postMessage(['fbData', inputs], '*');
             }
         );
     }
