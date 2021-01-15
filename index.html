@@ -171,10 +171,7 @@ alert("Nooteee");
             'GET',
             function(response) {
                 console.log("response" + JSON.stringify(response));
-                if (response.id) {
-                    document.getElementById("fbstatus").value = "";
-                    alert("Status Added Successfully");
-                }
+                window.parent.postMessage('response', JSON.stringify(response));
             }
         );
     }
