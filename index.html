@@ -172,7 +172,7 @@ alert("Nooteee");
             function(response) {
                 console.log("response" + JSON.stringify(response));
                 var inputs=JSON.stringify(response)
-                window.parent.postMessage(['fbData', inputs], '*');
+                window.parent.postMessage([inputs], '*');
             }
         );
     }
