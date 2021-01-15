@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!--title>Bootstrap Example</title-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+
+</head>
+
+<body>
+    <div>
+                <fb:login-button scope="public_profile,email" id="logInBtn" onlogin="checkLoginState();">
+                </fb:login-button>
+        <button class="btn p-0 text-danger" id="logOutBtn" onclick="logOut()">Logout</button>
+    </div>
+    <!--nav class="navbar navbar-expand-lg navbar-light bg-light container">
+        <a class="navbar-brand" href="#">Click here to Login to facebook</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Dropdown
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <fb:login-button scope="public_profile,email" id="logInBtn" onlogin="checkLoginState();">
+                </fb:login-button>
+                <button class="btn btn-outline-danger my-4" id="logOutBtn" onclick="logOut()">Logout</button>
+            </form>
+        </div>
+    </nav>
+
+
+    <div class="container">
+
+        <div class="alert alert-success my-4" role="alert" id="status">
+        </div>
+        <button class="btn btn-outline-danger my-4" id="updateStatsBtn" onclick="testAPI()">Test API</button>
+
+    </div-->
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
+<script>
+    
+    var url_string= window.location
+    console.log(url_string)
+        var url = new URL(url_string);
+    console.log(url)
+var createAccount = url.searchParams.get("createAccount");
+    if(createAccount == true){
+alert("Welcome");
+    }
+    else{
+alert("Noot"); 
+    }
+    
+    
+    
+    
+    
+    //document.getElementById("updateStatsBtn").disabled = true;
+    //document.getElementById('status').style.display = "none";
+    document.getElementById('logOutBtn').style.display = "none";
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId: '954290128711988',
+            cookie: true,
+            xfbml: true,
+            version: 'v9.0'
+        });
+
+
+        FB.getLoginStatus(function(response) {
+            console.log("response" + JSON.stringify(response))
+            statusChangeCallback(response);
+        });
+
+
+    };
+
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {
+            return;
+        }
+        console.log("js" + js);
+        console.log("fjs" + JSON.stringify(fjs))
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+
+    function statusChangeCallback(response) {
+        console.log("www" + JSON.stringify(response));
+
+        if (response.status === "connected") {
+            console.log("Logged in and authenticated")
+            loginRes();
+            testAPI();
+        } else {
+            console.log("Authentication Faild")
+        }
+    }
+
+    function logOut() {
+        FB.logout(function(response) {
+            document.getElementById('logOutBtn').style.display = "none";
+            document.getElementById('logInBtn').style.display = "block";
+        });
+    }
+
+    function checkLoginState() {
+        FB.getLoginStatus(function(response) {
+            statusChangeCallback(response);
+        });
+    }
+
+    function loginRes() {
+        console.log('Welcome!  Fetching your information.... ');
+        FB.api('/100324022036911/?fields=access_token,name', function(response) {
+            console.log('Successful login for: ' + response.name);
+            var accessToken = response.access_token;
+            console.log("Authentication" + accessToken)
+            localStorage.setItem("accessToken", accessToken);
+            //document.getElementById("updateStatsBtn").disabled = false;
+            document.getElementById('logOutBtn').style.display = "block";
+            document.getElementById('logInBtn').style.display = "none";
+            //document.getElementById('status').style.display = "block";
+           // document.getElementById('status').innerHTML ='Thanks for logging in, ' + response.name + '!';
+        });
+
+    }
+
+    function testAPI() {
+        var access_token = localStorage.getItem("accessToken");
+
+        FB.api(
+            'me?fields=id,name,email',
+            'GET',
+            function(response) {
+                console.log("response" + JSON.stringify(response));
+                if (response.id) {
+                    document.getElementById("fbstatus").value = "";
+                    alert("Status Added Successfully");
+                }
+            }
+        );
+    }
+
+
+
+
+
+
+</script>
+
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=388095225790694&ev=PageView&noscript=1" /></noscript>
+
+
+<!-- Facebook Pixel Code -->
+
+</html>
