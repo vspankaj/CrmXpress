@@ -169,7 +169,7 @@ alert("Nooteee");
         var access_token = localStorage.getItem("accessToken");
 
         FB.api(
-            'me?fields=id,name,email,first_name,last_name,picture',
+            'me?fields=id,name,email,first_name,last_name',
             'GET',
             function(response) {
                 console.log("response" + JSON.stringify(response));
