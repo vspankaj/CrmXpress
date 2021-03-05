@@ -19,6 +19,7 @@
     <div id="fb-root"></div>
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v10.0&appId=954290128711988&autoLogAppEvents=1" nonce="W0Tzi9yJ"></script>
     <div class="fb-login-button" data-width="" data-size="large" data-button-type="login_with" data-layout="rounded" data-auto-logout-link="false" data-use-continue-as="false" onlogin="checkLoginState();"></div>
+        <button class="btn p-0 text-danger" id="logOutBtn" onclick="logOut()">Logout</button>
     <!--div>
         <fb:login-button scope="public_profile,email" id="logInBtn" onlogin="checkLoginState();">
         </fb:login-button>
@@ -137,9 +138,10 @@ alert("Nooteee");
     }
 
     function logOut() {
+        alert("ddddd");
         FB.logout(function(response) {
-            document.getElementById('logOutBtn').style.display = "none";
-            document.getElementById('logInBtn').style.display = "block";
+            //document.getElementById('logOutBtn').style.display = "none";
+           // document.getElementById('logInBtn').style.display = "block";
         });
     }
 
@@ -157,8 +159,8 @@ alert("Nooteee");
             console.log("Authentication" + accessToken)
             localStorage.setItem("accessToken", accessToken);
             //document.getElementById("updateStatsBtn").disabled = false;
-            document.getElementById('logOutBtn').style.display = "block";
-            document.getElementById('logInBtn').style.display = "none";
+            //document.getElementById('logOutBtn').style.display = "block";
+            //document.getElementById('logInBtn').style.display = "none";
             //document.getElementById('status').style.display = "block";
             // document.getElementById('status').innerHTML ='Thanks for logging in, ' + response.name + '!';
         });
